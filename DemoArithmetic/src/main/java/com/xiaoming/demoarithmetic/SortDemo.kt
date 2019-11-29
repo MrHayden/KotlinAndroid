@@ -13,6 +13,7 @@ fun main(arg: Array<String>) {
     sortDemo.selectSort(array)
     sortDemo.insertSort(array)
     sortDemo.binarySort(array)
+    sortDemo.quickSort(array)
 }
 
 
@@ -103,7 +104,8 @@ class SortDemo {
                     rightIndex = mid - 1
                 }
             }
-            for (i in index -1 downTo leftIndex step 1) {
+            //比leftIndex右边大的值要往后移一位，等待temp插入进去
+            for (i in index - 1 downTo leftIndex step 1) {
                 array[i + 1] = array[i]
             }
             if (leftIndex != index)
@@ -112,5 +114,46 @@ class SortDemo {
         println("二分排序：${array.joinToString(",") { it.toString() }}")
     }
 
+    /**
+     * 快速排序
+     * @param array Array<Int>
+     */
+    fun quickSort(array: Array<Int>) {
+        quickMidIndex(array, 0, array.size - 1)
+        println("快速排序：${array.joinToString(",") { it.toString() }}")
+    }
+
+
+    private fun quickMidIndex(array: Array<Int>, low: Int, high: Int) {
+        if (low < high) {
+            val mid = quickOneIndex(array, low, high)
+            quickMidIndex(array, 0, mid - 1)
+            quickMidIndex(array, mid + 1, high)
+        }
+    }
+
+    /**
+     * @param array Array<Int>
+     * @param low Int  比基准元素小的下标
+     * @param high Int 比基准元素大的下标
+     */
+    private fun quickOneIndex(array: Array<Int>, low: Int, high: Int): Int {
+        val temp = array[low] //基准元素
+        var mLow = low
+        var mHigh = high
+        while (mLow < mHigh) {
+            while (mLow < mHigh && array[mHigh] >= temp) {
+                mHigh--
+            }
+            array[mLow] = array[mHigh]
+
+            while (mLow < mHigh && array[mLow] <= temp) {
+                mLow++
+            }
+            array[mHigh] = array[mLow]
+        }
+        array[mLow] = temp
+        return mLow
+    }
 }
 
