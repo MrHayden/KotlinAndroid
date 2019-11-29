@@ -146,9 +146,12 @@ class SortDemo {
             while (mLow < mHigh && array[mHigh] >= temp) {
                 mHigh--
             }
+            array[mLow] = array[mHigh]
+
             while (mLow < mHigh && array[mLow] <= temp) {
                 mLow++
             }
+            array[mHigh] = array[mLow]
         }
         array[mLow] = temp
         return mLow
