@@ -9,36 +9,14 @@ package com.xiaoming.demoarithmetic
 fun main(arg: Array<String>) {
     val array = arrayOf(2, 4, 3, 11, 5, 22, 51, 54, 12, 43, 75, 7)
     val sortDemo = SortDemo()
-//        sortDemo.selectSort(array)
-//        sortDemo.bubbleSort(array)
+    sortDemo.bubbleSort(array)
+    sortDemo.selectSort(array)
     sortDemo.insertSort(array)
+    sortDemo.binarySort(array)
 }
 
 
 class SortDemo {
-
-    /**
-     * 选择排序
-     * @param array Array<Int>
-     */
-    fun selectSort(array: Array<Int>) {
-        var min: Int
-        var temp: Int
-        array.forEachIndexed { index, data ->
-            min = data
-            temp = data
-            for (index2 in index until array.size) {
-                if (array[index2] < min) {
-                    min = array[index2]
-                    array[index] = min
-                    array[index2] = temp
-                }
-            }
-        }
-        array.forEach {
-            println(it)
-        }
-    }
 
     /**
      * 冒泡排序
@@ -60,9 +38,34 @@ class SortDemo {
             if (!isModify)
                 return@forEachIndexed
         }
-        println(array.joinToString(",") { it.toString() })
+        println("冒泡排序：${array.joinToString(",") { it.toString() }}")
     }
 
+    /**
+     * 选择排序
+     * @param array Array<Int>
+     */
+    fun selectSort(array: Array<Int>) {
+        var min: Int
+        var temp: Int
+        array.forEachIndexed { index, data ->
+            min = data
+            temp = data
+            for (index2 in index until array.size) {
+                if (array[index2] < min) {
+                    min = array[index2]
+                    array[index] = min
+                    array[index2] = temp
+                }
+            }
+        }
+        println("选择排序：${array.joinToString(",") { it.toString() }}")
+    }
+
+    /**
+     * 插入排序
+     * @param array Array<Int>
+     */
     fun insertSort(array: Array<Int>) {
         val size = array.size
         for (index in 1 until size) {
@@ -78,7 +81,36 @@ class SortDemo {
             }
             array[index3 + 1] = temp
         }
-        println(array.joinToString(",") { it.toString() })
+        println("插入排序：${array.joinToString(",") { it.toString() }}")
     }
+
+    /**
+     * 二分排序
+     * @param array Array<Int>
+     */
+    fun binarySort(array: Array<Int>) {
+        val size = array.size
+        for (index in 1 until size) {
+            val temp = array[index]
+            var leftIndex = 0
+            var rightIndex = index - 1
+            var mid = 0
+            while (leftIndex <= rightIndex) {
+                mid = (leftIndex + rightIndex) / 2
+                if (temp > array[mid]) {
+                    leftIndex = mid + 1
+                } else {
+                    rightIndex = mid - 1
+                }
+            }
+            for (i in index -1 downTo leftIndex step 1) {
+                array[i + 1] = array[i]
+            }
+            if (leftIndex != index)
+                array[leftIndex] = temp
+        }
+        println("二分排序：${array.joinToString(",") { it.toString() }}")
+    }
+
 }
 
