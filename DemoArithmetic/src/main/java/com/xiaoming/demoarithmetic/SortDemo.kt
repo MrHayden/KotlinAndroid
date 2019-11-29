@@ -7,7 +7,7 @@ package com.xiaoming.demoarithmetic
  */
 
 fun main(arg: Array<String>) {
-    val array = arrayOf(2, 4, 3, 11, 5, 22, 51, 54, 12, 43, 75, 7)
+    val array = arrayOf(2,21,32, 4, 3, 11, 5, 22, 51, 54, 12, 43, 75, 7)
     val sortDemo = SortDemo()
     sortDemo.bubbleSort(array)
     sortDemo.selectSort(array)
@@ -133,6 +133,7 @@ class SortDemo {
     }
 
     /**
+     * 获取当前基准元素所在排序好的数组的对应下标
      * @param array Array<Int>
      * @param low Int  比基准元素小的下标
      * @param high Int 比基准元素大的下标
@@ -145,12 +146,9 @@ class SortDemo {
             while (mLow < mHigh && array[mHigh] >= temp) {
                 mHigh--
             }
-            array[mLow] = array[mHigh]
-
             while (mLow < mHigh && array[mLow] <= temp) {
                 mLow++
             }
-            array[mHigh] = array[mLow]
         }
         array[mLow] = temp
         return mLow
