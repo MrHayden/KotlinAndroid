@@ -42,5 +42,5 @@ class LazySingleton private constructor(){
 相比平时的空格（&#32;），nbsp拥有不间断（non-breaking）特性。即连续的nbsp会在同一行内显示。即使有100个连续的nbsp，浏览器也不会把它们拆成两行。
 ```
 
-
-1.DemoArithmetic :算法的demo
+## 项目说明
+### DemoArithmetic :算法的demo
