@@ -14,9 +14,11 @@ class ExampleUnitTest {
     @Test
     fun testSelectSortMain() {
         val array = arrayOf(2, 4, 3, 11, 5, 22, 51, 54, 12, 43, 75, 7)
+        array.sort()
+        println(array.joinToString { it.toString() })
 //        selectSort(array)
 //        bubbleSort(array)
-        insertSort(array)
+//        insertSort(array)
     }
 
     /**
@@ -67,7 +69,7 @@ class ExampleUnitTest {
 
     private fun insertSort(array: Array<Int>) {
         val size = array.size
-        for (index in 1 until size){
+        for (index in 1 until size) {
             val temp = array[index]
             var index3 = 0
             for (index2 in index - 1 downTo 0 step 1) {
@@ -78,7 +80,7 @@ class ExampleUnitTest {
                     break
                 }
             }
-            array[index3+1]  = temp
+            array[index3 + 1] = temp
         }
         println(array.joinToString(",") { it.toString() })
     }
