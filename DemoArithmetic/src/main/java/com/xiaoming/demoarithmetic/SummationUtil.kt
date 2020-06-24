@@ -13,7 +13,29 @@ class SummationUtil {
 
         @JvmStatic
         fun main(arg: Array<String>) {
-            println(threeSumClosest(intArrayOf(-1, 2, 1, -4), 1))
+//            println(threeSumClosest(intArrayOf(-1, 2, 1, -4), 1))
+            println(twoSum(intArrayOf(2, 5, 5, 11), 10).joinToString { it.toString() })
+        }
+
+        /**
+         * 求两数之和
+         * @param nums IntArray
+         * @param target Int
+         * @return IntArray
+         */
+        fun twoSum(nums: IntArray, target: Int): IntArray {
+            val numPosArr = IntArray(2)
+            val maxPos = nums.size - 1
+            first@ for (i in 0..maxPos) {
+                for (j in (i + 1)..maxPos) {
+                    if (nums[i] + nums[j] == target) {
+                        numPosArr[0] = i
+                        numPosArr[1] = j
+                        break@first
+                    }
+                }
+            }
+            return numPosArr
         }
 
         /**
