@@ -22,6 +22,11 @@ class SummationUtil {
          * @param nums IntArray
          * @param target Int
          * @return IntArray
+         *
+        给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
+        你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。
+
+        链接：https://leetcode-cn.com/problems/two-sum
          */
         fun twoSum(nums: IntArray, target: Int): IntArray {
             val numPosArr = IntArray(2)
@@ -97,6 +102,31 @@ class SummationUtil {
                 }
             }
             return best
+        }
+
+
+        /**
+         * 移除元素
+         * @param nums IntArray
+         * @param `val` Int
+         * @return Int
+         *
+         * 给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。
+
+        不要使用额外的数组空间，你必须仅使用 O(1) 额外空间并 原地 修改输入数组。
+
+        元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。
+         */
+        fun removeElement(nums: IntArray, `val`: Int): Int {
+            if (nums.isEmpty()) return 0
+            var newLength = 0
+            for (i in nums.indices) {
+                if (nums[i] != `val`) {
+                    nums[newLength] = nums[i]
+                    newLength++
+                }
+            }
+            return newLength
         }
     }
 }
