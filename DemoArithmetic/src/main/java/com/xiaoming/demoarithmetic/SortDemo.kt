@@ -1,7 +1,5 @@
 package com.xiaoming.demoarithmetic
 
-import org.jetbrains.annotations.TestOnly
-
 /**
  * author: xxm
  * created on: 2019/11/29 10:13

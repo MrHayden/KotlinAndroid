@@ -1,9 +1,10 @@
 package com.xiaoming.couroutine
 
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import android.graphics.BitmapFactory
+import android.widget.ImageView
+import kotlinx.coroutines.*
+import java.net.HttpURLConnection
+import java.net.URL
 
 /**
  * author: xxm
@@ -25,6 +26,7 @@ class CoroutineExample {
 //                }
                 testJob()
             }
+
         }
 
         private fun testGlobalScopeLaunch() {
@@ -57,5 +59,6 @@ class CoroutineExample {
             println("Hello，")
             job.join()//等待直到子线程结束
         }
+
     }
 }
