@@ -1,3 +1,3 @@
-include ':Couroutine'
+include ':Couroutine',':rxnet'
 include ':app', ':DemoArithmetic'
 rootProject.name='KotlinAndroid'

@@ -1,0 +1,61 @@
+apply plugin: 'com.android.library'
+//apply plugin: 'com.novoda.bintray-release'//添加
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+    }
+
+}
+
+//添加
+//publish {
+//    userOrg = 'hayden'//bintray.com用户名
+//    repoName = 'hayden'//要传到的maven的名字。你可能有多个maven，要传哪个写哪个。
+//    groupId = 'org.net.rxnet'//jcenter上的路径
+//    artifactId = 'RxNet'//项目名称
+//    publishVersion = '1.0.2'//版本号
+//    desc = 'Retrofit2，RxJava，Okhttp3简单封装，快速开发项目!'//描述，不重要
+//    website = 'https://github.com/JackLiaoJH'//网站，不重要
+//}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+//    api deps.rxjava2
+//    api(deps.rx_android) {
+//        exclude module: "rxjava"
+//    }
+//    api(deps.retrofit.runtime) {
+//        exclude module: 'okhttp'
+//        exclude module: 'okio'
+//    }
+//    api(deps.retrofit.gson) {
+//        exclude module: 'gson'
+//        exclude module: 'okhttp'
+//        exclude module: 'okio'
+//        exclude module: 'retrofit'
+//    }
+//
+//    api(deps.retrofit.adapter_rxjava2) {
+//        exclude module: 'rxjava'
+//        exclude module: 'okhttp'
+//        exclude module: 'retrofit'
+//        exclude module: 'okio'
+//    }
+
+    api 'com.google.code.gson:gson:2.8.2'
+
+    api 'com.squareup.retrofit2:retrofit:2.6.2'
+    api 'com.squareup.retrofit2:converter-gson:2.6.2'
+
+    api "com.squareup.okhttp3:okhttp:4.2.0"
+    api "com.squareup.okhttp3:logging-interceptor:4.2.0"
+
+}
