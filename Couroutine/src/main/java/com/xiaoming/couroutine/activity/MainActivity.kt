@@ -3,19 +3,25 @@ package com.xiaoming.couroutine.activity
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.Observer
+import com.xiaoming.couroutine.Constants
 import com.xiaoming.couroutine.R
 import com.xiaoming.couroutine.base.BaseActivity
 import com.xiaoming.couroutine.server.api.AppApi
 import com.xiaoming.couroutine.server.respository.AppRepository
 import com.xiaoming.couroutine.server.viewmodel.AppViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.net.rxnet.RxNet
 import java.net.HttpURLConnection
 import java.net.URL
+import kotlin.coroutines.EmptyCoroutineContext
 
 
-class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
+class MainActivity : BaseActivity() {
 
     private lateinit var appViewModel: AppViewModel
 
@@ -28,10 +34,10 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
         appViewModel = AppViewModel(AppRepository(RxNet.create(AppApi::class.java)))
 
         btn_send_request.setOnClickListener {
-            //        CoroutineScope(Dispatchers.Main).launch {
-//            val bitmap = loadImage(Constants.URL_IMG)
-//            imageView.setImageBitmap(bitmap)
-//        }
+//            CoroutineScope(EmptyCoroutineContext).launch(Dispatchers.Main) {
+//                val bitmap = loadImage(Constants.URL_IMG)
+//                imageView.setImageBitmap(bitmap)
+//            }
 
             requestAppVersion()
         }
@@ -39,15 +45,12 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
     }
 
     private fun requestAppVersion() {
-        launch {
-            val resultData = withContext(Dispatchers.IO) {
-                appViewModel.getAppVersion(21041001)
+        appViewModel.getAppVersion(21041001).observe(this, Observer {
+            Log.e("http", "返回值：$it")
+            if (it?.isSuccess() == true) {
+                tv_content.text = it.message
             }
-            Log.e("http", "返回值：$resultData")
-            if (resultData.isSuccess()) {
-                tv_content.text = resultData.message
-            }
-        }
+        })
     }
 
     /**
@@ -67,8 +70,4 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
         bitmap
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        cancel()
-    }
 }

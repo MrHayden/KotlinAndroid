@@ -2,9 +2,6 @@ package com.xiaoming.couroutine.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.xiaoming.couroutine.R
 
 /**

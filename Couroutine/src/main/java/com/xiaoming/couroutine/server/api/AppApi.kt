@@ -20,5 +20,5 @@ interface AppApi {
     suspend fun getAppVersion(
         @Query("versionNumber") versionNumber: Long,
         @Query("versionType") versionType: Int
-    ): ServiceResult<AppVersionVo>
+    ): ServiceResult<AppVersionVo>?
 }
