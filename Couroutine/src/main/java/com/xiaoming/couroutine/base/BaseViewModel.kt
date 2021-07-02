@@ -2,7 +2,6 @@ package com.xiaoming.couroutine.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
@@ -18,7 +17,8 @@ open class BaseViewModel : ViewModel() {
         onSucceed: suspend (T) -> Unit,
         onFailed: suspend (throwable: Throwable) -> Unit = {}
     ) {
-        viewModelScope.launch(Dispatchers.Main) {
+        //默认是在主线程中
+        viewModelScope.launch {
             runCatching {
                 onBlock()
             }.onSuccess {

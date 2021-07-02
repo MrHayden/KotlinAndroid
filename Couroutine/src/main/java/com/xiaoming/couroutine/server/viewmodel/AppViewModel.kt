@@ -15,26 +15,34 @@ import com.xiaoming.couroutine.server.vo.AppVersionVo
  */
 class AppViewModel constructor(private val appRepository: AppRepository) : BaseViewModel() {
 
-    fun getAppVersion(versionCode: Long): LiveData<ServiceResult<AppVersionVo>?> {
-        val mLiveData = MutableLiveData<ServiceResult<AppVersionVo>?>()
+//    private val mCoroutineScope: CoroutineScope =
+//        CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+
+    val appVersionLiveData = MutableLiveData<ServiceResult<AppVersionVo>?>()
+    fun getAppVersion(versionCode: Long) {
         requestData(onBlock = {
             appRepository.getAppVersion(versionCode)
         }, onSucceed = {
-            mLiveData.value = it
+            appVersionLiveData.value = it
         }, onFailed = {
-            mLiveData.value = ServiceResult.throwableError(it)
+            appVersionLiveData.value = ServiceResult.throwableError(it)
         })
-        return mLiveData
 
-//        return liveData {
-//            requestData(onBlock = {
+        //todo  livedata没有在页面关闭时自动取消任务
+//        return liveData(context = mCoroutineScope.coroutineContext) {
+//            kotlin.runCatching {
 //                appRepository.getAppVersion(versionCode)
-//            }, onSucceed = {
+//            }.onSuccess {
 //                emit(it)
-//            }, onFailed = {
+//            }.onFailure {
 //                emit(ServiceResult.throwableError(it))
-//            })
+//            }
 //        }
     }
+
+//    override fun onCleared() {
+//        super.onCleared()
+//        mCoroutineScope.cancel()
+//    }
 
 }
