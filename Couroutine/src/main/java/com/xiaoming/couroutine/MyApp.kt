@@ -26,7 +26,6 @@ class MyApp : Application() {
         val httpParams = HttpParams()
         httpParams.put("os", "android")
         httpParams.put("osVersion", Build.VERSION.RELEASE)
-//        val inputStream = resources.assets.open("runpaycampus.pem")
         RxNet.init(this)
             .debug(BuildConfig.DEBUG)
             .setConnectTimeout(15_000)

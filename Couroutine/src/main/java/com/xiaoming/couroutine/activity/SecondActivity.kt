@@ -4,12 +4,12 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.xiaoming.couroutine.R
 import com.xiaoming.couroutine.base.BaseActivity
 import com.xiaoming.couroutine.server.viewmodel.AppViewModel
 import kotlinx.android.synthetic.main.act_second.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -25,6 +25,28 @@ class SecondActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         appViewModel = getViewModel(AppViewModel::class.java)
+
+        lifecycleScope.launch {
+            val mData = withContext(Dispatchers.IO) {
+                Log.e("lifecycleScope","线程：${Thread.currentThread()}")
+            }
+            tv_content.text = mData.toString()
+            Log.e("lifecycleScope","线程2：${Thread.currentThread()}")
+        }
+
+        val async1 = lifecycleScope.async {
+            delay(2000)
+            "async1"
+        }
+        val async2 = lifecycleScope.async {
+            delay(3000)
+            "async2"
+        }
+         lifecycleScope.launch {
+            Log.e("lifecycleScope","async值开始时间：${System.currentTimeMillis()}")
+            Log.e("lifecycleScope","async值：${async1.await()}******${async2.await()}")
+            Log.e("lifecycleScope","async值结束时间：${System.currentTimeMillis()}")
+        }
 
         appViewModel.appVersionLiveData.observe(this, Observer {
             Log.e("http", "返回值：$it")
