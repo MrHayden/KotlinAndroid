@@ -26,14 +26,6 @@ class SecondActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         appViewModel = getViewModel(AppViewModel::class.java)
 
-        lifecycleScope.launch {
-            val mData = withContext(Dispatchers.IO) {
-                Log.e("lifecycleScope","线程：${Thread.currentThread()}")
-            }
-            tv_content.text = mData.toString()
-            Log.e("lifecycleScope","线程2：${Thread.currentThread()}")
-        }
-
         val async1 = lifecycleScope.async {
             delay(2000)
             "async1"
@@ -42,10 +34,10 @@ class SecondActivity : BaseActivity() {
             delay(3000)
             "async2"
         }
-         lifecycleScope.launch {
-            Log.e("lifecycleScope","async值开始时间：${System.currentTimeMillis()}")
-            Log.e("lifecycleScope","async值：${async1.await()}******${async2.await()}")
-            Log.e("lifecycleScope","async值结束时间：${System.currentTimeMillis()}")
+        lifecycleScope.launch {
+            Log.e("lifecycleScope", "async值开始时间：${System.currentTimeMillis()}")
+            Log.e("lifecycleScope", "async值：${async1.await()}******${async2.await()}")
+            Log.e("lifecycleScope", "async值结束时间：${System.currentTimeMillis()}")
         }
 
         appViewModel.appVersionLiveData.observe(this, Observer {
@@ -56,7 +48,7 @@ class SecondActivity : BaseActivity() {
         })
 
         btn_send_request.setOnClickListener {
-//            CoroutineScope(EmptyCoroutineContext).launch(Dispatchers.Main) {
+//            lifecycleScope.launch {
 //                val bitmap = loadImage(Constants.URL_IMG)
 //                imageView.setImageBitmap(bitmap)
 //            }

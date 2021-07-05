@@ -1,7 +1,8 @@
 package com.xiaoming.couroutine.server.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.xiaoming.couroutine.base.BaseViewModel
 import com.xiaoming.couroutine.server.ServiceResult
 import com.xiaoming.couroutine.server.respository.AppRepository
@@ -15,9 +16,6 @@ import com.xiaoming.couroutine.server.vo.AppVersionVo
  */
 class AppViewModel constructor(private val appRepository: AppRepository) : BaseViewModel() {
 
-//    private val mCoroutineScope: CoroutineScope =
-//        CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-
     val appVersionLiveData = MutableLiveData<ServiceResult<AppVersionVo>?>()
     fun getAppVersion(versionCode: Long) {
         requestData(onBlock = {
@@ -27,9 +25,10 @@ class AppViewModel constructor(private val appRepository: AppRepository) : BaseV
         }, onFailed = {
             appVersionLiveData.value = ServiceResult.throwableError(it)
         })
+    }
 
-        //todo  livedata没有在页面关闭时自动取消任务
-//        return liveData(context = mCoroutineScope.coroutineContext) {
+//    fun getAppVersion(versionCode: Long) =
+//        liveData(viewModelScope.coroutineContext) {
 //            kotlin.runCatching {
 //                appRepository.getAppVersion(versionCode)
 //            }.onSuccess {
@@ -38,11 +37,4 @@ class AppViewModel constructor(private val appRepository: AppRepository) : BaseV
 //                emit(ServiceResult.throwableError(it))
 //            }
 //        }
-    }
-
-//    override fun onCleared() {
-//        super.onCleared()
-//        mCoroutineScope.cancel()
-//    }
-
 }

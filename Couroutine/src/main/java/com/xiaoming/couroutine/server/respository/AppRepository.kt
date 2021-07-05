@@ -2,7 +2,6 @@ package com.xiaoming.couroutine.server.respository
 
 import com.xiaoming.couroutine.server.api.AppApi
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 
 /**
